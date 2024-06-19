@@ -11,7 +11,7 @@ const addNote = asyncHandler( async (req, res) => {
         throw new ApiError(400, "Title and Content of a note is required")
     }
 
-    const newNote = Note.create({
+    const newNote = await Note.create({
         title,
         content,
         owner,
@@ -19,6 +19,7 @@ const addNote = asyncHandler( async (req, res) => {
         sharedWith: []
     })
 
+    console.log("newNote --->", newNote)
     if(!newNote){
         throw new ApiError(500, "Something went wrong while adding a note")
     }
@@ -32,6 +33,8 @@ const updateNote = asyncHandler( async (req, res) => {
     const {title, content } = req.body;
     const { note } = req.params;
     const updatedBy = req.user?._id
+
+    //// validate user with sharedWith of any note
 
     if(!title || !content || title.trim()==="" || content.trim()===""){
         throw new ApiError(400, "Title and Content of a note is required")
