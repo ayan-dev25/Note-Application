@@ -7,8 +7,8 @@ const sharedWithSchema = new Schema({
     },
     access: {
         type: String,
-        enum: ['editor', 'viewer'],
-        default: "viewer",
+        enum: ['Editor', 'Viewer'],
+        default: "Viewer",
     }
 })
 

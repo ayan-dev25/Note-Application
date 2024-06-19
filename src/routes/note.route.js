@@ -5,7 +5,7 @@ import { verifyJWT } from "../middlewares/auth.middleware.js"
 const router = Router()
 
 router.route("/").get(getAllNotes).post(verifyJWT,addNote)
-
+router.route("/:note/share").get()
 router.route("/:note").put(updateNote)
 router.route("/:note").delete(deleteNote)
 

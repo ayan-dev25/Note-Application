@@ -87,4 +87,16 @@ const getAllNotes = async (req, res) => {
         return [];
       }
 }
+const getNote = async (req, res) => {
+    try {
+        const { note } = req.params
+        const notes = await Note.findById(note);
+        res.status(201).json(
+            new ApiResponse(200, notes, "Notes fetched successfully")
+        )
+      } catch (error) {
+        console.error("Error fetching notes:", error);
+        return [];
+      }
+}
 export {addNote, updateNote, deleteNote, getAllNotes}

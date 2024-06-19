@@ -1,6 +1,6 @@
 import { Note } from "../models/Note.model.js";
-import { ApiError } from "../utils/ApiError";
-import { ApiResponse } from "../utils/ApiResponse";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 const shareNote = asyncHandler( async (req, res) => {
@@ -19,6 +19,7 @@ const shareNote = asyncHandler( async (req, res) => {
     if(sharedNote
         && sharedNote.sharedWith
     ){
+        console.log(sharedWith)
             for (let index = 0; index < sharedWith.length; index++) {
                 const element = sharedWith[index];
                 if(!sharedNote.sharedWith.includes(element)){
@@ -34,8 +35,8 @@ const shareNote = asyncHandler( async (req, res) => {
 
             return res.status(201).json(
                 new ApiResponse(200, {
-                    updatedSharedNote,
-                    sharedLink: `http://localhost:8000/api/v1/notes/${updatedSharedNote?._id}/share`
+                    sharedNote:updatedSharedNote,
+                    sharedLink: `http://localhost:${process.env.PORT}/api/v1/notes/${updatedSharedNote?._id}/share`
                 },"Note has been shared successfully")
             )
         }

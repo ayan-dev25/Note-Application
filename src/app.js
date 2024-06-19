@@ -28,10 +28,11 @@ app.use(cookieParser())
 import userRouter from "./routes/user.route.js"
 import authRouter from "./routes/auth.route.js"
 import noteRouter from "./routes/note.route.js"
-
+import shareRouter from "./routes/share.route.js"
 
 //routes declaration
 app.use("/api/v1/users", userRouter)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/notes", noteRouter)
+app.use("/api/v1/share", shareRouter)
 export { app }
