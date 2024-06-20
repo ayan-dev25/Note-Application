@@ -83,20 +83,18 @@ const getAllNotes = async (req, res) => {
             new ApiResponse(200, notes, "Notes fetched successfully")
         )
       } catch (error) {
-        console.error("Error fetching notes:", error);
-        return [];
+        new ApiError(500, "Something went wrong while fetching notes")
       }
 }
 const getNote = async (req, res) => {
     try {
         const { note } = req.params
-        const notes = await Note.findById(note);
+        const specificNote = await Note.findById(note);
         res.status(201).json(
-            new ApiResponse(200, notes, "Notes fetched successfully")
+            new ApiResponse(200, specificNote, "Note fetched successfully")
         )
       } catch (error) {
-        console.error("Error fetching notes:", error);
-        return [];
+        new ApiError(500, "Something went wrong while fetching a particular note")
       }
 }
-export {addNote, updateNote, deleteNote, getAllNotes}
+export {addNote, updateNote, deleteNote, getAllNotes, getNote}

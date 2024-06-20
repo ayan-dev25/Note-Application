@@ -41,8 +41,35 @@ const shareNote = asyncHandler( async (req, res) => {
             )
         }
 
+})
 
+const removeSharedNoteAccess = asyncHandler ( async (req, res) => {
+
+const { note } = req.params
+const emailToRemove = req.body.email
+
+const updatedNote = await Note.findByIdAndUpdate(
+    note,
+    {
+        $pull: {
+            sharedWith: { email: emailToRemove }
+        }
+    },
+    { new: true }, // This option returns the modified document
+);
+
+   if(updatedNote)
+        return res.status(201).json(
+            new ApiResponse(200, {
+                sharedNote:updatedNote,
+                sharedLink: `http://localhost:${process.env.PORT}/api/v1/notes/${updatedNote?._id}/share`
+            },"Access has been remove successfully")
+        )
+} )
+
+
+const changeSharedNoteAccessRole = asyncHandler( async (req, res) => {
 
 })
 
-export { shareNote }
+export { shareNote, removeSharedNoteAccess }
