@@ -24,6 +24,7 @@ app.use(express.static("public"))
 app.use(cookieParser())
 
 
+
 //routes import
 import userRouter from "./routes/user.route.js"
 import authRouter from "./routes/auth.route.js"
@@ -35,4 +36,10 @@ app.use("/api/v1/users", userRouter)
 app.use("/api/v1/auth", authRouter)
 app.use("/api/v1/notes", noteRouter)
 app.use("/api/v1/share", shareRouter)
+
+import swaggerUi from "swagger-ui-express";
+import swaggerDocument from "./docs/swagger.json" assert { type: "json" };
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+
 export { app }

@@ -56,7 +56,7 @@ const updateAccountDetails = asyncHandler(async (req, res) => {
 const getAllUsers = async (req, res) => {
     try {
         // Fetch all users from the database
-        const users = await User.find({});
+        const users = await User.find({}).select('-password -__v');
         res.status(201).json(
             new ApiResponse(200, users, "Users fetched successfully")
         )
